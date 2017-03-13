@@ -12,7 +12,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">サインアップ</a></li>
+                    <li>{!! link_to_route('signup.get', 'サインアップ') !!}</li>
                     <li><a href="#">ログイン</a></li>
                 </ul>
             </div>
