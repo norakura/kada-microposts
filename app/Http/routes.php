@@ -29,6 +29,21 @@ Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 //ログイン認証付きのルーティング
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
+
+    //グループ内のルーティングでは、URLに/users/{id}/ が付与
+    //例）上から順に
+    //POST /users/{id}/follow
+    //DELETE /users/{id}/unfollow
+    //GET /users/{id}/followings
+    //GET /users/{id}/followers
+    Route::group(['prefix' => 'users/{id}'], function () { 
+        Route::post('follow', 'UserFollowController@store')->name('user.follow');
+        Route::delete('unfollow', 'UserFollowController@destroy')->name('user.unfollow');
+        Route::get('followings', 'UsersController@followings')->name('users.followings');
+        Route::get('followers', 'UsersController@followers')->name('users.followers');
+    });
+    
+
     Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy']]);
     
 });
