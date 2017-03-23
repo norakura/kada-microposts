@@ -37,7 +37,7 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
     
-    //追記
+    //1対多
     public function microposts()
     {
         return $this->hasMany(Micropost::class);
@@ -90,6 +90,14 @@ class User extends Model implements AuthenticatableContract,
     
     public function is_following($userId){
         return $this->followings()->where('follow_id', $userId)->exists();
+    }
+
+    //タイムライン用
+    public function feed_microposts()
+    {
+        $follow_user_ids = $this->followings()->lists('users.id')->toArray();
+        $follow_user_ids[] = $this->id;
+        return Micropost::whereIn('user_id', $follow_user_ids);
     }
     
 }
