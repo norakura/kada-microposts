@@ -14,7 +14,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::check())
                         <li>{!! link_to_route('users.index', 'ユーザー一覧') !!}</li>
-                        <li>{!! link_to_route('users.favoritings','お気に入り一覧', ['id' => $user->id]) !!}</a></li>
+                        <li>{!! link_to_route('users.favoritings','お気に入り一覧', ['id' => Auth::user()->id]) !!}</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
